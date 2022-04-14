@@ -52,15 +52,11 @@ public class FileCreator {
     }
 
     public void folderCreator(Path createTheFolderPath) {
-        if (!createTheFolderPath.toFile().isFile()) {
-            try {
-                Files.createDirectories(createTheFolderPath);
-                System.out.println(createTheFolderPath + " -- got created!");
-            } catch (IOException e) {
-                System.err.println("Folder was not created!");
-            }
-        } else {
-            System.out.println(createTheFolderPath + " -- Exists already!");
+        try {
+            Files.createDirectories(createTheFolderPath);
+            System.out.println(createTheFolderPath + " -- got created!");
+        } catch (IOException e) {
+            System.err.println("Folder was not created!");
         }
     }
 
