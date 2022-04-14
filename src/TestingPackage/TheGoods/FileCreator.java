@@ -12,10 +12,8 @@ public class FileCreator {
     private static final String MAIN_MENU_OPTION_MAKE_FILE = "Makes a file named:";
     private static final String EXIT_MENU_OPTION = "Exit";
     private static final String[] MAIN_MENU_OPTIONS = {MAIN_MENU_OPTION_MAKE_FOLDER, MAIN_MENU_OPTION_MAKE_FILE, EXIT_MENU_OPTION};
-    private Menu menu;
-    private Scanner scanner = new Scanner(System.in);
-    private Path pathToBeMade;
-    private Path fileToBeMade;
+    private final Menu menu;
+    private final Scanner scanner = new Scanner(System.in);
     //</editor-fold>
 
 
@@ -25,28 +23,31 @@ public class FileCreator {
 
 
     public void run() {
+        LoopMenu:
         while (true) {
             String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 
-            if (choice.equals(MAIN_MENU_OPTION_MAKE_FOLDER)) {
-                System.out.println("Please enter folder name!");
-                if (scanner.hasNext()) {
-                    String userInput = scanner.nextLine();
-                    pathToBeMade = Path.of(userInput);
-                    folderCreator(pathToBeMade);
-                }
+            switch (choice) {
+                case MAIN_MENU_OPTION_MAKE_FOLDER:
+                    System.out.println("Please enter folder name!");
+                    if (scanner.hasNext()) {
+                        String userInput = scanner.nextLine();
+                        Path pathToBeMade = Path.of(userInput);
+                        folderCreator(pathToBeMade);
+                    }
 
-            } else if (choice.equals(MAIN_MENU_OPTION_MAKE_FILE)) {
-                System.out.println("Please enter file name!");
-                if (scanner.hasNext()) {
-                    String userInput = scanner.nextLine();
-                    fileToBeMade = Path.of(userInput);
-                    fileCreator(fileToBeMade);
-                }
+                    break;
+                case MAIN_MENU_OPTION_MAKE_FILE:
+                    System.out.println("Please enter file name!");
+                    if (scanner.hasNext()) {
+                        String userInput = scanner.nextLine();
+                        Path fileToBeMade = Path.of(userInput);
+                        fileCreator(fileToBeMade);
+                    }
 
-            } else if (choice.equals(EXIT_MENU_OPTION)) {
-                break;
-
+                    break;
+                case EXIT_MENU_OPTION:
+                    break LoopMenu;
             }
         }
     }
